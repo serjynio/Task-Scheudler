@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task Time Scheduler</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #3AAFA9;
+    }
+    
+   .container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #DEF2F1;
+border: 10px solid #FFFFFF;
+
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #829A99;
+}
+
+form {
+  margin-bottom: 20px;
+  background-color: #3AAFA9;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  color: #FFFFFF;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #3AAFA9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#result {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  color: #333333;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Task Time Scheduler</h1>
+    <form id="taskForm">
+
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="easyTasks">Number of Easy Tasks:</label>
+      <input type="number" id="easyTasks" required>
+      
+      <label for="mediumTasks">Number of Medium Tasks:</label>
+      <input type="number" id="mediumTasks" required>
+      
+      <label for="hardTasks">Number of Hard Tasks:</label>
+      <input type="number" id="hardTasks" required>
+      
+      <label for="duration">Duration Curation for Assessment (minutes):</label>
+      <input type="number" id="duration" required>
+      
+      <input type="submit" value="Calculate">
+    </form>
+    
+    <div id="result"></div>
+  </div>
+  
+  <script>
+    document.getElementById("taskForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      var easyTasks = parseInt(document.getElementById("easyTasks").value);
+      var mediumTasks = parseInt(document.getElementById("mediumTasks").value);
+      var hardTasks = parseInt(document.getElementById("hardTasks").value);
+      var duration = parseInt(document.getElementById("duration").value);
+      
+      var totalTasks = easyTasks + mediumTasks + hardTasks;
+      var hardWeight = 1;
+      var mediumWeight = 0.75;
+      var easyWeight = 0.5;
+      
+      var hardTime = (hardWeight * duration) / totalTasks;
+      var mediumTime = (mediumWeight * duration) / totalTasks;
+      var easyTime = (easyWeight * duration) / totalTasks;
+      
+      var result = "Recommended Time per Task:<br>";
+      result += "Time for each Hard Task: " + hardTime.toFixed(2) + " minutes<br>";
+      result += "Time for each Medium Task: " + mediumTime.toFixed(2) + " minutes<br>";
+      result += "Time for each Easy Task: " + easyTime.toFixed(2) + " minutes";
+      
+      document.getElementById("result").innerHTML = result;
+    });
+  </script>
+</body>
+</html>
